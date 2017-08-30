@@ -39,7 +39,7 @@
           mdValue: '## Vue-markdownEditor'
         },
         hidType: [
-          "preview"
+          "Preview"
         ]
       }
     },

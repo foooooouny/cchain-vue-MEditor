@@ -1,6 +1,6 @@
 {
   "name": "cchain-vue-meditor",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "author": "zzboy",
   "description": "cchain vue markdown editor",
   "main": "src/index.js",

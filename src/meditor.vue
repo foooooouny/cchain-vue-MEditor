@@ -4,26 +4,26 @@
             <!-- <div class="nameContainer" v-if="icoStatusP" @click="happyDay">OVEN-mdEditor</div> -->
             <div class="markContainer">
                 <ul class="markListGroup">
-                  <li class="markListItem" @click="addStrong" title="strong" v-if="isShow(strong)"><b>B</b></li>
-                  <li class="markListItem" @click="addItalic" title="italic" v-if="isShow(italic)"><i>I</i></li>
-                  <li class="markListItem" @click="addStrikethrough" title="strikethrough"><i class="fa fa-strikethrough" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addHTitle(1)" title="H1-title" v-if="isShow(H1)">H1</li>
-                  <li class="markListItem" @click="addHTitle(2)" title="H2-title" v-if="isShow(H2)">H2</li>
-                  <li class="markListItem" @click="addHTitle(3)" title="H3-title" v-if="isShow(H3)">H3</li>
-                  <li class="markListItem" @click="addHTitle(4)" title="H4-title" v-if="isShow(H4)">H4</li>
-                  <li class="markListItem" @click="addHTitle(5)" title="H5-title" v-if="isShow(H5)">H5</li>
-                  <li class="markListItem" @click="addHTitle(6)" title="H6-title" v-if="isShow(H6)">H6</li>
-                  <li class="markListItem" @click="addLine" title="line" v-if="isShow(line)">一</li>
-                  <li class="markListItem" @click="addQuote" title="quote" v-if="isShow(quote)"><i class="fa fa-quote-left" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addCode"><i class="fa fa-code" aria-hidden="true" v-if="isShow(code)"></i></li>
-                  <li class="markListItem" @click="addLink"><i class="fa fa-link" aria-hidden="true" v-if="isShow(link)"></i></li>
-                  <li class="markListItem" @click="addImage"><i class="fa fa-picture-o" aria-hidden="true" v-if="isShow(image)"></i></li>
-                  <li class="markListItem" @click="addTable" title="table"><i class="fa fa-table" aria-hidden="true" v-if="isShow(table)"></i></li>
-                  <li class="markListItem" @click="addUl" title="ul-list"><i class="fa fa-list-ul" aria-hidden="true" v-if="isShow(ul)"></i></li>
-                  <li class="markListItem" @click="addOl" title="ol-list"><i class="fa fa-list-ol" aria-hidden="true" v-if="isShow(ol)"></i></li>
-                  <li class="markListItem" @click="fullPageFn" title="fullpage"><i class="fa fa-arrows-alt" aria-hidden="true" v-if="isShow(fullpage)"></i></li>
-                  <li class="markListItem" @click="previewFn" title="preview"><i class="fa fa-eye-slash" aria-hidden="true" v-if="isShow(preview)"></i></li>
-                  <li class="markListItem" @click="previewAllFn" title="previewAll"><i class="fa fa-eye" aria-hidden="true" v-if="isShow(previewAll)"></i></li>
+                  <li class="markListItem" @click="addStrong" title="strong" v-if="isShow('Strong')"><b>B</b></li>
+                  <li class="markListItem" @click="addItalic" title="italic" v-if="isShow('Italic')"><i>I</i></li>
+                  <li class="markListItem" @click="addStrikethrough" title="strikethrough" v-if="isShow('Strikethrough')"><i class="fa fa-strikethrough" aria-hidden="true"></i></li>
+                  <li class="markListItem" @click="addHTitle(1)" title="H1-title" v-if="isShow('H1')">H1</li>
+                  <li class="markListItem" @click="addHTitle(2)" title="H2-title" v-if="isShow('H2')">H2</li>
+                  <li class="markListItem" @click="addHTitle(3)" title="H3-title" v-if="isShow('H3')">H3</li>
+                  <li class="markListItem" @click="addHTitle(4)" title="H4-title" v-if="isShow('H4')">H4</li>
+                  <li class="markListItem" @click="addHTitle(5)" title="H5-title" v-if="isShow('H5')">H5</li>
+                  <li class="markListItem" @click="addHTitle(6)" title="H6-title" v-if="isShow('H6')">H6</li>
+                  <li class="markListItem" @click="addLine" title="line" v-if="isShow('Line')">一</li>
+                  <li class="markListItem" @click="addQuote" title="quote" v-if="isShow('Quote')"><i class="fa fa-quote-left" aria-hidden="true"></i></li>
+                  <li class="markListItem" @click="addCode"><i class="fa fa-code" aria-hidden="true" v-if="isShow('Code')"></i></li>
+                  <li class="markListItem" @click="addLink"><i class="fa fa-link" aria-hidden="true" v-if="isShow('Link')"></i></li>
+                  <li class="markListItem" @click="addImage"><i class="fa fa-picture-o" aria-hidden="true" v-if="isShow('Image')"></i></li>
+                  <li class="markListItem" @click="addTable" title="table"><i class="fa fa-table" aria-hidden="true" v-if="isShow('Table')"></i></li>
+                  <li class="markListItem" @click="addUl" title="ul-list"><i class="fa fa-list-ul" aria-hidden="true" v-if="isShow('Ul')"></i></li>
+                  <li class="markListItem" @click="addOl" title="ol-list"><i class="fa fa-list-ol" aria-hidden="true" v-if="isShow('Ol')"></i></li>
+                  <li class="markListItem" @click="fullPageFn" title="fullpage"><i class="fa fa-arrows-alt" aria-hidden="true" v-if="isShow('Fullpage')"></i></li>
+                  <li class="markListItem" @click="previewFn" title="preview"><i class="fa fa-eye-slash" aria-hidden="true" v-if="isShow('Preview')"></i></li>
+                  <li class="markListItem" @click="previewAllFn" title="previewAll"><i class="fa fa-eye" aria-hidden="true" v-if="isShow('PreviewAll')"></i></li>
                 </ul>
             </div>
         </div>
