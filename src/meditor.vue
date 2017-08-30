@@ -248,7 +248,7 @@ export default {
       let typeBool = hType.length === 0 
       for (let i of typeBool) {
         if (v === i) {
-          typeBool = true
+          typeBool = false
         }
       }
       return typeBool
