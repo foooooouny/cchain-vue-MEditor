@@ -60,7 +60,7 @@ export default {
       icoStatus: Boolean(this.icoStatusP),
       maxEditScrollHeight: 0,
       maxPreviewScrollHeight: 0,
-      txtId: `txtId_${containerId}`,
+      txtId: `txtId_${this.textareaId || 'MdEditor'}`,
       hiddenType: this.hidType || []
     }
   },
