@@ -376,5 +376,6 @@ export default {
     background: #fff;
     overflow: auto;
     padding: 10px;
+    text-align: left;
   }
 </style>
