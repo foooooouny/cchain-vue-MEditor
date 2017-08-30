@@ -19,6 +19,7 @@
           :previewStatusP="true"
           :navStatusP="true"
           :icoStatusP="true"
+          :hidType="hidType"
           @childevent="childEventHandler"
           ></Editor>
         </div>
@@ -36,7 +37,10 @@
         dilogStatus: false,
         msg: {
           mdValue: '## Vue-markdownEditor'
-        }
+        },
+        hidType: [
+          "preview"
+        ]
       }
     },
     components: {

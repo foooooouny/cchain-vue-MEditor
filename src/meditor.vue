@@ -4,26 +4,26 @@
             <!-- <div class="nameContainer" v-if="icoStatusP" @click="happyDay">OVEN-mdEditor</div> -->
             <div class="markContainer">
                 <ul class="markListGroup">
-                  <li class="markListItem" @click="addStrong" title="strong"><b>B</b></li>
-                  <li class="markListItem" @click="addItalic" title="italic"><i>I</i></li>
+                  <li class="markListItem" @click="addStrong" title="strong" v-if="isShow(strong)"><b>B</b></li>
+                  <li class="markListItem" @click="addItalic" title="italic" v-if="isShow(italic)"><i>I</i></li>
                   <li class="markListItem" @click="addStrikethrough" title="strikethrough"><i class="fa fa-strikethrough" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addHTitle(1)" title="H1-title">H1</li>
-                  <li class="markListItem" @click="addHTitle(2)" title="H2-title">H2</li>
-                  <li class="markListItem" @click="addHTitle(3)" title="H3-title">H3</li>
-                  <li class="markListItem" @click="addHTitle(4)" title="H4-title">H4</li>
-                  <li class="markListItem" @click="addHTitle(5)" title="H5-title">H5</li>
-                  <li class="markListItem" @click="addHTitle(6)" title="H6-title">H6</li>
-                  <li class="markListItem" @click="addLine" title="line">一</li>
-                  <li class="markListItem" @click="addQuote" title="quote"><i class="fa fa-quote-left" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addCode"><i class="fa fa-code" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addLink"><i class="fa fa-link" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addImage"><i class="fa fa-picture-o" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addTable" title="table"><i class="fa fa-table" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addUl" title="ul-list"><i class="fa fa-list-ul" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addOl" title="ol-list"><i class="fa fa-list-ol" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="fullPageFn" title="fullpage"><i class="fa fa-arrows-alt" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="previewFn" title="preview"><i class="fa fa-eye-slash" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="previewAllFn" title="previewAll"><i class="fa fa-eye" aria-hidden="true"></i></li>
+                  <li class="markListItem" @click="addHTitle(1)" title="H1-title" v-if="isShow(H1)">H1</li>
+                  <li class="markListItem" @click="addHTitle(2)" title="H2-title" v-if="isShow(H2)">H2</li>
+                  <li class="markListItem" @click="addHTitle(3)" title="H3-title" v-if="isShow(H3)">H3</li>
+                  <li class="markListItem" @click="addHTitle(4)" title="H4-title" v-if="isShow(H4)">H4</li>
+                  <li class="markListItem" @click="addHTitle(5)" title="H5-title" v-if="isShow(H5)">H5</li>
+                  <li class="markListItem" @click="addHTitle(6)" title="H6-title" v-if="isShow(H6)">H6</li>
+                  <li class="markListItem" @click="addLine" title="line" v-if="isShow(line)">一</li>
+                  <li class="markListItem" @click="addQuote" title="quote" v-if="isShow(quote)"><i class="fa fa-quote-left" aria-hidden="true"></i></li>
+                  <li class="markListItem" @click="addCode"><i class="fa fa-code" aria-hidden="true" v-if="isShow(code)"></i></li>
+                  <li class="markListItem" @click="addLink"><i class="fa fa-link" aria-hidden="true" v-if="isShow(link)"></i></li>
+                  <li class="markListItem" @click="addImage"><i class="fa fa-picture-o" aria-hidden="true" v-if="isShow(image)"></i></li>
+                  <li class="markListItem" @click="addTable" title="table"><i class="fa fa-table" aria-hidden="true" v-if="isShow(table)"></i></li>
+                  <li class="markListItem" @click="addUl" title="ul-list"><i class="fa fa-list-ul" aria-hidden="true" v-if="isShow(ul)"></i></li>
+                  <li class="markListItem" @click="addOl" title="ol-list"><i class="fa fa-list-ol" aria-hidden="true" v-if="isShow(ol)"></i></li>
+                  <li class="markListItem" @click="fullPageFn" title="fullpage"><i class="fa fa-arrows-alt" aria-hidden="true" v-if="isShow(fullpage)"></i></li>
+                  <li class="markListItem" @click="previewFn" title="preview"><i class="fa fa-eye-slash" aria-hidden="true" v-if="isShow(preview)"></i></li>
+                  <li class="markListItem" @click="previewAllFn" title="previewAll"><i class="fa fa-eye" aria-hidden="true" v-if="isShow(previewAll)"></i></li>
                 </ul>
             </div>
         </div>
@@ -38,13 +38,17 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import scroll from 'vue-scroll'
 import marked from 'marked'
 import hljs from './assets/js/highlight.js'
 import range from './assets/js/rangeFn.js'
 
+Vue.use(scroll)
+
 export default {
   name: 'markdown-editor',
-  props: ['textareaId', 'mdValuesP', 'fullPageStatusP', 'editStatusP', 'previewStatusP', 'navStatusP', 'icoStatusP'],
+  props: ['textareaId', 'mdValuesP', 'fullPageStatusP', 'editStatusP', 'previewStatusP', 'navStatusP', 'icoStatusP', 'hidType'],
   data () {
     return {
       containerId: this.textareaId || 'MdEditor',
@@ -56,7 +60,8 @@ export default {
       icoStatus: Boolean(this.icoStatusP),
       maxEditScrollHeight: 0,
       maxPreviewScrollHeight: 0,
-      mdbId: `mdbId_${this.containerId}`
+      mdbId: `mdbId_${this.containerId}`,
+      hiddenType: this.hidType || []
     }
   },
   created: function() {
@@ -237,6 +242,16 @@ export default {
         let topPercent = position.scrollTop / this.maxEditScrollHeight
         document.getElementById(this.mdbId).scrollTop = this.maxPreviewScrollHeight * topPercent
       }
+    },
+    isShow: function (v) {
+      let hType = this.hiddenType
+      let typeBool = hType.length === 0 
+      for (let i of typeBool) {
+        if (v === i) {
+          typeBool = true
+        }
+      }
+      return typeBool
     }
     // happyDay:function(){
     //     window.open('https://github.com/ovenslove/vue-mdEditor');
