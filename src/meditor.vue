@@ -245,8 +245,8 @@ export default {
     },
     isShow: function (v) {
       let hType = this.hiddenType
-      let typeBool = hType.length === 0 
-      for (let i of typeBool) {
+      let typeBool = true
+      for (let i of hType) {
         if (v === i) {
           typeBool = false
         }
