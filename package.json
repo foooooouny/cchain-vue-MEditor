@@ -18,7 +18,9 @@
   "keywords": [
     "vue",
     "vue-scroll",
-    "marked"
+    "marked",
+    "sass-loader",
+    "node-sass"
   ],
   "license": "ISC",
   "bugs": {
