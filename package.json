@@ -1,0 +1,28 @@
+{
+  "name": "cchain-vue-meditor",
+  "version": "1.0.0",
+  "author": "zzboy",
+  "description": "cchain vue markdown editor",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "vue": ">=2",
+    "font-face": "fontawesome-webfont"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foooooouny/cchain-vue-MEditor.git"
+  },
+  "keywords": [
+    "vue",
+    "vue-scroll",
+    "marked"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/foooooouny/cchain-vue-MEditor/issues"
+  },
+  "homepage": "https://github.com/foooooouny/cchain-vue-MEditor#readme"
+}
