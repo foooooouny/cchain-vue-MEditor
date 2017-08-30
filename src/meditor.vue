@@ -15,23 +15,23 @@
                   <li class="markListItem" @click="addHTitle(6)" title="H6-title" v-if="isShow('H6')">H6</li>
                   <li class="markListItem" @click="addLine" title="line" v-if="isShow('Line')">一</li>
                   <li class="markListItem" @click="addQuote" title="quote" v-if="isShow('Quote')"><i class="fa fa-quote-left" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addCode"><i class="fa fa-code" aria-hidden="true" v-if="isShow('Code')"></i></li>
-                  <li class="markListItem" @click="addLink"><i class="fa fa-link" aria-hidden="true" v-if="isShow('Link')"></i></li>
-                  <li class="markListItem" @click="addImage"><i class="fa fa-picture-o" aria-hidden="true" v-if="isShow('Image')"></i></li>
-                  <li class="markListItem" @click="addTable" title="table"><i class="fa fa-table" aria-hidden="true" v-if="isShow('Table')"></i></li>
-                  <li class="markListItem" @click="addUl" title="ul-list"><i class="fa fa-list-ul" aria-hidden="true" v-if="isShow('Ul')"></i></li>
-                  <li class="markListItem" @click="addOl" title="ol-list"><i class="fa fa-list-ol" aria-hidden="true" v-if="isShow('Ol')"></i></li>
-                  <li class="markListItem" @click="fullPageFn" title="fullpage"><i class="fa fa-arrows-alt" aria-hidden="true" v-if="isShow('Fullpage')"></i></li>
-                  <li class="markListItem" @click="previewFn" title="preview"><i class="fa fa-eye-slash" aria-hidden="true" v-if="isShow('Preview')"></i></li>
-                  <li class="markListItem" @click="previewAllFn" title="previewAll"><i class="fa fa-eye" aria-hidden="true" v-if="isShow('PreviewAll')"></i></li>
+                  <li class="markListItem" @click="addCode" v-if="isShow('Code')"><i class="fa fa-code" aria-hidden="true"></i></li>
+                  <li class="markListItem" @click="addLink" v-if="isShow('Link')"><i class="fa fa-link" aria-hidden="true"></i></li>
+                  <li class="markListItem" @click="addImage" v-if="isShow('Image')"><i class="fa fa-picture-o" aria-hidden="true"></i></li>
+                  <li class="markListItem" @click="addTable" title="table" v-if="isShow('Table')"><i class="fa fa-table" aria-hidden="true"></i></li>
+                  <li class="markListItem" @click="addUl" title="ul-list" v-if="isShow('Ul')"><i class="fa fa-list-ul" aria-hidden="true"></i></li>
+                  <li class="markListItem" @click="addOl" title="ol-list" v-if="isShow('Ol')"><i class="fa fa-list-ol" aria-hidden="true"></i></li>
+                  <li class="markListItem" @click="fullPageFn" title="fullpage" v-if="isShow('Fullpage')"><i class="fa fa-arrows-alt" aria-hidden="true"></i></li>
+                  <li class="markListItem" @click="previewFn" title="preview" v-if="isShow('Preview')"><i class="fa fa-eye-slash" aria-hidden="true"></i></li>
+                  <li class="markListItem" @click="previewAllFn" title="previewAll" v-if="isShow('PreviewAll')"><i class="fa fa-eye" aria-hidden="true"></i></li>
                 </ul>
             </div>
         </div>
         <div class="mdBodyContainer" :class="{ noMenu: !navStatus }">
-            <div class="editContainer" v-if="editStatus">
+            <div :id="txtId" class="editContainer" v-if="editStatus">
               <textarea name="" :id="containerId" class="mdEditor" @keydown.9="tabFn" v-scroll="editScroll" v-model="inputVsp"></textarea>
             </div>
-            <div :id="mdbId" class="previewContainer markdown-body" v-scroll="previewScroll" v-html="compiledMarkdown" v-if="previewStatus">
+            <div class="previewContainer markdown-body" v-scroll="previewScroll" v-html="compiledMarkdown" v-if="previewStatus">
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@ export default {
       icoStatus: Boolean(this.icoStatusP),
       maxEditScrollHeight: 0,
       maxPreviewScrollHeight: 0,
-      mdbId: `mdbId_${this.containerId}`,
+      txtId: `txtId_${containerId}`,
       hiddenType: this.hidType || []
     }
   },
@@ -227,7 +227,7 @@ export default {
     fullPageFn: function() {
       this.fullPageStatus = !this.fullPageStatus
       let maxEditScrollHeight = document.getElementById(this.containerId).scrollHeight - document.getElementById(this.containerId).clientHeight
-      let maxPreviewScrollHeight = document.getElementById(this.mdbId).scrollHeight - document.getElementById(this.mdbId).clientHeight
+      let maxPreviewScrollHeight = document.getElementById(this.txtId).scrollHeight - document.getElementById(this.txtId).clientHeight
       this.maxEditScrollHeight = maxEditScrollHeight
       this.maxPreviewScrollHeight = maxPreviewScrollHeight
     },
@@ -240,7 +240,7 @@ export default {
     editScroll: function(e, position) {
       if (this.maxPreviewScrollHeight !== 0) {
         let topPercent = position.scrollTop / this.maxEditScrollHeight
-        document.getElementById(this.mdbId).scrollTop = this.maxPreviewScrollHeight * topPercent
+        document.getElementById(this.txtId).scrollTop = this.maxPreviewScrollHeight * topPercent
       }
     },
     isShow: function (v) {
@@ -273,7 +273,7 @@ export default {
       })
       this.$emit('childevent', data)
       let maxEditScrollHeight = document.getElementById(this.containerId).scrollHeight - document.getElementById(this.containerId).clientHeight
-      let maxPreviewScrollHeight = document.getElementById(this.mdbId).scrollHeight - document.getElementById(this.mdbId).clientHeight
+      let maxPreviewScrollHeight = document.getElementById(this.txtId).scrollHeight - document.getElementById(this.txtId).clientHeight
       this.maxEditScrollHeight = maxEditScrollHeight
       this.maxPreviewScrollHeight = maxPreviewScrollHeight
     }
