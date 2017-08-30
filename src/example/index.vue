@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import Editor from '../components/meditor.vue'
+  import Editor from '../meditor.vue'
   export default {
     name: 'index',
     data() {
