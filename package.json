@@ -1,6 +1,6 @@
 {
   "name": "cchain-vue-meditor",
-  "version": "1.5.0",
+  "version": "1.5.5",
   "author": "zzboy",
   "description": "cchain vue markdown editor",
   "main": "src/index.js",
@@ -12,8 +12,7 @@
     "node-sass": ">=4",
     "sass-loader": ">=3",
     "vue-scroll": ">=2",
-    "marked": ">=0.3",
-    "font-face": "fontawesome-webfont"
+    "marked": ">=0.3"
   },
   "repository": {
     "type": "git",

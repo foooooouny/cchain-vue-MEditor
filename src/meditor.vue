@@ -31,19 +31,16 @@
             <div class="editContainer" v-if="editStatus">
               <textarea name="" :id="containerId" class="mdEditor" @keydown.9="tabFn" v-scroll="editScroll" v-model="inputVsp"></textarea>
             </div>
-            <div class="previewContainer markdown-body" v-scroll="previewScroll" v-html="compiledMarkdown" v-if="previewStatus">
+            <div :id="mdbId" class="previewContainer markdown-body" v-scroll="previewScroll" v-html="compiledMarkdown" v-if="previewStatus">
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import scroll from 'vue-scroll'
 import marked from 'marked'
 import hljs from './assets/js/highlight.js'
 import range from './assets/js/rangeFn.js'
-Vue.use(scroll)
 
 export default {
   name: 'markdown-editor',
@@ -58,7 +55,8 @@ export default {
       navStatus: Boolean(this.navStatusP),
       icoStatus: Boolean(this.icoStatusP),
       maxEditScrollHeight: 0,
-      maxPreviewScrollHeight: 0
+      maxPreviewScrollHeight: 0,
+      mdbId: `mdbId_${this.containerId}`
     }
   },
   created: function() {
@@ -224,7 +222,7 @@ export default {
     fullPageFn: function() {
       this.fullPageStatus = !this.fullPageStatus
       let maxEditScrollHeight = document.getElementById(this.containerId).scrollHeight - document.getElementById(this.containerId).clientHeight
-      let maxPreviewScrollHeight = document.querySelector('.previewContainer').scrollHeight - document.querySelector('.previewContainer').clientHeight
+      let maxPreviewScrollHeight = document.getElementById(this.mdbId).scrollHeight - document.getElementById(this.mdbId).clientHeight
       this.maxEditScrollHeight = maxEditScrollHeight
       this.maxPreviewScrollHeight = maxPreviewScrollHeight
     },
@@ -237,7 +235,7 @@ export default {
     editScroll: function(e, position) {
       if (this.maxPreviewScrollHeight !== 0) {
         let topPercent = position.scrollTop / this.maxEditScrollHeight
-        document.querySelector('.previewContainer').scrollTop = this.maxPreviewScrollHeight * topPercent
+        document.getElementById(this.mdbId).scrollTop = this.maxPreviewScrollHeight * topPercent
       }
     }
     // happyDay:function(){
@@ -260,7 +258,7 @@ export default {
       })
       this.$emit('childevent', data)
       let maxEditScrollHeight = document.getElementById(this.containerId).scrollHeight - document.getElementById(this.containerId).clientHeight
-      let maxPreviewScrollHeight = document.querySelector('.previewContainer').scrollHeight - document.querySelector('.previewContainer').clientHeight
+      let maxPreviewScrollHeight = document.getElementById(this.mdbId).scrollHeight - document.getElementById(this.mdbId).clientHeight
       this.maxEditScrollHeight = maxEditScrollHeight
       this.maxPreviewScrollHeight = maxPreviewScrollHeight
     }
