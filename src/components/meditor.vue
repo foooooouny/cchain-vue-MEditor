@@ -38,9 +38,12 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import scroll from 'vue-scroll'
 import marked from 'marked'
 import hljs from '../assets/js/highlight.js'
 import range from '../assets/js/rangeFn.js'
+Vue.use(scroll)
 
 export default {
   name: 'markdown-editor',
