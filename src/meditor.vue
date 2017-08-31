@@ -1,25 +1,39 @@
 <template>
     <div class="mdContainer" :class="{ fullPage: fullPageStatus }">
         <div class="navContainer" v-if="navStatus">
-            <div class="nameContainer" v-if="brandCnt" @click="happyDay" v-html="brandCnt"></div>
+            <div class="nameContainer" v-if="brandCnt" @click="brandLinkFunc" v-html="brandCnt"></div>
             <div class="markContainer">
                 <ul class="markListGroup">
                   <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addStrong" title="strong" v-if="isShow('Strong')">
-                    <b>B</b>
+                    <i class="fa fa-bold" aria-hidden="true"></i>
                   </li>
                   <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addItalic" title="italic" v-if="isShow('Italic')">
-                    <i>I</i>
+                    <i class="fa fa-italic" aria-hidden="true"></i>
                   </li>
                   <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addStrikethrough" title="strikethrough" v-if="isShow('Strikethrough')">
                     <i class="fa fa-strikethrough" aria-hidden="true"></i>
                   </li>
-                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(1)" title="H1-title" v-if="isShow('H1')">H1</li>
-                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(2)" title="H2-title" v-if="isShow('H2')">H2</li>
-                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(3)" title="H3-title" v-if="isShow('H3')">H3</li>
-                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(4)" title="H4-title" v-if="isShow('H4')">H4</li>
-                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(5)" title="H5-title" v-if="isShow('H5')">H5</li>
-                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(6)" title="H6-title" v-if="isShow('H6')">H6</li>
-                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addLine" title="line" v-if="isShow('Line')">一</li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(1)" title="H1-title" v-if="isShow('H1')">
+                    <i class="fa fa-header" aria-hidden="true"><span>1</span></i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(2)" title="H2-title" v-if="isShow('H2')">
+                    <i class="fa fa-header" aria-hidden="true"><span>2</span></i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(3)" title="H3-title" v-if="isShow('H3')">
+                    <i class="fa fa-header" aria-hidden="true"><span>3</span></i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(4)" title="H4-title" v-if="isShow('H4')">
+                    <i class="fa fa-header" aria-hidden="true"><span>4</span></i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(5)" title="H5-title" v-if="isShow('H5')">
+                    <i class="fa fa-header" aria-hidden="true"><span>5</span></i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(6)" title="H6-title" v-if="isShow('H6')">
+                    <i class="fa fa-header" aria-hidden="true"><span>6</span></i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addLine" title="line" v-if="isShow('Line')">
+                    <i class="fa fa-minus" aria-hidden="true"></i>
+                  </li>
                   <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addQuote" title="quote" v-if="isShow('Quote')">
                     <i class="fa fa-quote-left" aria-hidden="true"></i>
                   </li>
@@ -57,7 +71,7 @@
         </div>
         <div class="mdBodyContainer" :class="{ noMenu: !navStatus }">
             <div :id="txtId" class="editContainer" v-if="editStatus">
-              <textarea :id="containerId" class="mdEditor" @keydown.9="tabFn" v-scroll="editScroll" v-model="inputVsp" :placeholder="editorHolder"></textarea>
+              <textarea name="" :id="containerId" class="mdEditor" @keydown.9="tabFn" v-scroll="editScroll" v-model="inputVsp"></textarea>
             </div>
             <div class="previewContainer markdown-body" v-scroll="previewScroll" v-html="compiledMarkdown" v-if="previewStatus">
             </div>
@@ -361,7 +375,7 @@ export default {
       }
       return typeBool
     },
-    happyDay: function () {
+    brandLinkFunc: function () {
       window.open('http://cpc.top')
     },
     bodyScrollFunc: function () {
@@ -440,16 +454,17 @@ export default {
   }
   .navContainer {
     width: 100%;
-    height: 36px;
+    // height: 36px;
     background-color: #F5F5F5;
     box-sizing: border-box;
     border-bottom: 1px solid #eee;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 0 10px;
+    padding: 4px 10px;
   }
   .nameContainer {
+    max-width: 30px;
     color: lightblue;
     margin-right: 10px;
     cursor: pointer;
@@ -462,20 +477,24 @@ export default {
   ul.markListGroup {
     height: 100%;
     width: auto;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    display: block;
+    // display: flex;
+    // justify-content: flex-start;
+    // align-items: center;
   }
   li.markListItem {
     list-style: none;
-    width: 20px;
-    height: 20px;
-    margin: 0 2px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 5px;
+    display: inline-block;
+    // width: 20px;
+    // height: 20px;
+    // margin: 0 2px;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
     cursor: pointer;
     font-size: 12px;
+    line-height: 1;
     color: #333;
     &:hover {
       background: #eee;
@@ -512,7 +531,6 @@ export default {
   .mdEditor {
     height: 100%;
     width: 100%;
-    padding: 10px;
     background: transparent;
     outline: none;
     color: #fff;
@@ -528,5 +546,11 @@ export default {
     overflow: auto;
     padding: 10px;
     text-align: left;
+  }
+  .fa {
+    >span {
+      position: relative;
+      top: 1px;
+    }
   }
 </style>
