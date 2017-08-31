@@ -98,7 +98,7 @@ export default {
       // 编辑器外层id
       txtId: `txtId_${this.textareaId || 'MdEditor'}`,
       editorHolder: this.editorPHolder || '此处填写Markdown格式文档',
-      editorH: this.editorHeight | '400px',
+      editorH: this.editorHeight || '400px',
       // markdown 内容
       inputVsp: this.mdValuesP || '',
       // 编辑器状态
