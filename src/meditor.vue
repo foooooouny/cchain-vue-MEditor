@@ -70,10 +70,10 @@
             </div>
         </div>
         <div class="mdBodyContainer" :class="{ noMenu: !navStatus }" :style="{ height: editorH }">
-            <div :id="txtId" class="editContainer" v-if="editStatus">
-              <textarea name="" :id="containerId" class="mdEditor" @keydown.9="tabFn" v-scroll="editScroll" v-model="inputVsp" :placeholder="editorHolder"></textarea>
+            <div :id="editorContainerId" class="editContainer" v-if="editStatus">
+              <textarea :id="containerId" class="mdEditor" @keydown.9="tabFn" v-scroll="editScroll" v-model="inputVsp" :placeholder="editorHolder"></textarea>
             </div>
-            <div class="previewContainer markdown-body" v-scroll="previewScroll" v-html="compiledMarkdown" v-if="previewStatus">
+            <div :id="previewContainerId" class="previewContainer markdown-body" v-scroll="previewScroll" v-html="compiledMarkdown" v-if="previewStatus">
             </div>
         </div>
     </div>
@@ -95,9 +95,11 @@ export default {
     return {
       // 编辑器id
       containerId: this.textareaId || 'MdEditor',
-      // 编辑器外层id
-      txtId: `txtId_${this.textareaId || 'MdEditor'}`,
+      editorContainerId: `txt_${this.textareaId || 'MdEditor'}`,
+      // 展示窗id
+      previewContainerId: `preview_${this.textareaId || 'MdEditor'}`,
       editorHolder: this.editorPHolder || '此处填写Markdown格式文档',
+      defaultEditorH: this.editorHeight || '400px',
       editorH: this.editorHeight || '400px',
       // markdown 内容
       inputVsp: this.mdValuesP || '',
@@ -344,26 +346,28 @@ export default {
     fullPageFn: function() {
       this.fullPageStatus = !this.fullPageStatus
       this.fullPageBtn = !this.fullPageBtn
-      let maxEditScrollHeight = document.getElementById(this.containerId).scrollHeight - document.getElementById(this.containerId).clientHeight
-      let maxPreviewScrollHeight = document.getElementById(this.txtId).scrollHeight - document.getElementById(this.txtId).clientHeight
+      let maxEditScrollHeight = document.getElementById(this.editorContainerId) ? document.getElementById(this.editorContainerId).scrollHeight - document.getElementById(this.editorContainerId).clientHeight : this.maxEditScrollHeight
+      let maxPreviewScrollHeight = document.getElementById(this.previewContainerId) ? document.getElementById(this.previewContainerId).scrollHeight - document.getElementById(this.previewContainerId).clientHeight : this.maxPreviewScrollHeight
       this.maxEditScrollHeight = maxEditScrollHeight
       this.maxPreviewScrollHeight = maxPreviewScrollHeight
       if (this.fullPageStatus) {
+        this.editorH = '100%'
         this.bodyScrollFunc().fullPage()
       } else {
+        this.editorH = this.defaultEditorH
         this.bodyScrollFunc().unFullPage()
       }
     },
     previewScroll: function(e, position) {
       if (this.maxEditScrollHeight !== 0) {
         let topPercent = position.scrollTop / this.maxPreviewScrollHeight
-        document.getElementById(this.containerId).scrollTop = this.maxEditScrollHeight * topPercent
+        document.getElementById(this.previewContainerId).scrollTop = this.maxEditScrollHeight * topPercent
       }
     },
     editScroll: function(e, position) {
       if (this.maxPreviewScrollHeight !== 0) {
         let topPercent = position.scrollTop / this.maxEditScrollHeight
-        document.getElementById(this.txtId).scrollTop = this.maxPreviewScrollHeight * topPercent
+        document.getElementById(this.editorContainerId).scrollTop = this.maxPreviewScrollHeight * topPercent
       }
     },
     isShow: function (v) {
@@ -383,7 +387,7 @@ export default {
       let that = this
       return {
         fullPage: function () {
-          that.bodyScrollTop = document.querySelector('body').scrollTop
+          that.bodyScrollTop = document.body.scrollTop
           document.body.classList.add('fullPage')
           document.body.style.top = -that.bodyScrollTop + 'px'
         },
@@ -410,8 +414,8 @@ export default {
         sanitize: true
       })
       this.$emit('childevent', data)
-      let maxEditScrollHeight = document.getElementById(this.containerId).scrollHeight - document.getElementById(this.containerId).clientHeight
-      let maxPreviewScrollHeight = document.getElementById(this.txtId).scrollHeight - document.getElementById(this.txtId).clientHeight
+      let maxEditScrollHeight = document.getElementById(this.editorContainerId) ? document.getElementById(this.editorContainerId).scrollHeight - document.getElementById(this.editorContainerId).clientHeight : this.maxEditScrollHeight
+      let maxPreviewScrollHeight = document.getElementById(this.previewContainerId) ? document.getElementById(this.previewContainerId).scrollHeight - document.getElementById(this.previewContainerId).clientHeight : this.maxPreviewScrollHeight
       this.maxEditScrollHeight = maxEditScrollHeight
       this.maxPreviewScrollHeight = maxPreviewScrollHeight
     }
