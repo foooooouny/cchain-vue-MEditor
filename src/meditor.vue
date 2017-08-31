@@ -71,7 +71,7 @@
         </div>
         <div class="mdBodyContainer" :class="{ noMenu: !navStatus }">
             <div :id="txtId" class="editContainer" v-if="editStatus">
-              <textarea name="" :id="containerId" class="mdEditor" @keydown.9="tabFn" v-scroll="editScroll" v-model="inputVsp"></textarea>
+              <textarea name="" :id="containerId" class="mdEditor" @keydown.9="tabFn" v-scroll="editScroll" v-model="inputVsp" :placeholder="editorHolder"></textarea>
             </div>
             <div class="previewContainer markdown-body" v-scroll="previewScroll" v-html="compiledMarkdown" v-if="previewStatus">
             </div>
@@ -155,7 +155,7 @@ export default {
         return
       }
       this.insertContent('    ')
-      // 屏蔽tab切换事件
+      // 屏蔽屌tab切换事件
       if (evt.preventDefault) {
         evt.preventDefault()
       } else {
@@ -484,11 +484,11 @@ export default {
   }
   li.markListItem {
     list-style: none;
+    margin: 0 1px;
     padding: 5px;
     display: inline-block;
     // width: 20px;
     // height: 20px;
-    // margin: 0 2px;
     // display: flex;
     // justify-content: center;
     // align-items: center;
@@ -496,6 +496,7 @@ export default {
     font-size: 12px;
     line-height: 1;
     color: #333;
+    border-radius: 1px;
     &:hover {
       background: #eee;
     }
@@ -529,6 +530,7 @@ export default {
     padding: 10px;
   }
   .mdEditor {
+    padding: 10px;
     height: 100%;
     width: 100%;
     background: transparent;
