@@ -57,7 +57,7 @@
         </div>
         <div class="mdBodyContainer" :class="{ noMenu: !navStatus }">
             <div :id="txtId" class="editContainer" v-if="editStatus">
-              <textarea name="" :id="containerId" class="mdEditor" @keydown.9="tabFn" v-scroll="editScroll" v-model="inputVsp"></textarea>
+              <textarea :id="containerId" class="mdEditor" @keydown.9="tabFn" v-scroll="editScroll" v-model="inputVsp" placeholder="editorHolder"></textarea>
             </div>
             <div class="previewContainer markdown-body" v-scroll="previewScroll" v-html="compiledMarkdown" v-if="previewStatus">
             </div>
@@ -76,13 +76,14 @@ Vue.use(scroll)
 
 export default {
   name: 'markdown-editor',
-  props: ['textareaId', 'mdValuesP', 'fullPageStatusP', 'editStatusP', 'columnsStatusP', 'navStatusP', 'brandContent', 'hidType'],
+  props: ['textareaId', 'editorPHolder', 'mdValuesP', 'fullPageStatusP', 'editStatusP', 'columnsStatusP', 'navStatusP', 'brandContent', 'hidType'],
   data () {
     return {
       // 编辑器id
       containerId: this.textareaId || 'MdEditor',
       // 编辑器外层id
       txtId: `txtId_${this.textareaId || 'MdEditor'}`,
+      editorHolder: this.editorPHolder || '此处填写Markdown格式文档',
       // markdown 内容
       inputVsp: this.mdValuesP || '',
       // 编辑器状态
@@ -511,6 +512,7 @@ export default {
   .mdEditor {
     height: 100%;
     width: 100%;
+    padding: 10px;
     background: transparent;
     outline: none;
     color: #fff;

@@ -14,13 +14,13 @@
         <div class="editorContainer">
           <Editor
           :textareaId="textareaId"
+          :editorPHolder="EPHolder"
           :brandContent="brandCnt"
           :mdValuesP="msg.mdValue"
           :fullPageStatusP="false"
           :editStatusP="true"
           :columnsStatusP="false"
           :navStatusP="true"
-          :brandCnt="CPC"
           :hidType="hidType"
           @childevent="childEventHandler"
           ></Editor>
