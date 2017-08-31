@@ -69,7 +69,7 @@
                 </ul>
             </div>
         </div>
-        <div class="mdBodyContainer" :class="{ noMenu: !navStatus }">
+        <div class="mdBodyContainer" :class="{ noMenu: !navStatus }" :style="{ height: editorH }">
             <div :id="txtId" class="editContainer" v-if="editStatus">
               <textarea name="" :id="containerId" class="mdEditor" @keydown.9="tabFn" v-scroll="editScroll" v-model="inputVsp" :placeholder="editorHolder"></textarea>
             </div>
@@ -90,7 +90,7 @@ Vue.use(scroll)
 
 export default {
   name: 'markdown-editor',
-  props: ['textareaId', 'editorPHolder', 'mdValuesP', 'fullPageStatusP', 'editStatusP', 'columnsStatusP', 'navStatusP', 'brandContent', 'hidType'],
+  props: ['textareaId', 'editorPHolder', 'editorHeight', 'mdValuesP', 'fullPageStatusP', 'editStatusP', 'columnsStatusP', 'navStatusP', 'brandContent', 'hidType'],
   data () {
     return {
       // 编辑器id
@@ -98,6 +98,7 @@ export default {
       // 编辑器外层id
       txtId: `txtId_${this.textareaId || 'MdEditor'}`,
       editorHolder: this.editorPHolder || '此处填写Markdown格式文档',
+      editorH: this.editorHeight | '400px',
       // markdown 内容
       inputVsp: this.mdValuesP || '',
       // 编辑器状态
@@ -442,8 +443,8 @@ export default {
   }
   .mdContainer {
     width: 100%;
-    height: 500px;
-    background: lightblue;
+    height: 100%;
+    background-color: lightblue;
     &.fullPage {
       position: fixed;
       z-index: 1000;
@@ -508,7 +509,6 @@ export default {
   }
   .mdBodyContainer {
     width: 100%;
-    height: calc(100% - 36px);
     background: #fff;
     display: flex;
     justify-content: space-between;
