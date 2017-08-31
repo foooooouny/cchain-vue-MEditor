@@ -36,6 +36,7 @@
       return {
         textareaId: 'exampleId',
         msgShow: '我要显示的内容',
+        EPHolder: 'example holder',
         dilogStatus: false,
         brandCnt: 'CPC',
         msg: {
