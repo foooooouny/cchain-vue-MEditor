@@ -326,6 +326,10 @@ export default {
       }
       this.previewBtn = true
       this.columnsStatus = !this.columnsStatus
+      setTimeout(() => {
+        this.maxEditScrollHeight = document.getElementById(this.containerId) ? document.getElementById(this.containerId).scrollHeight - document.getElementById(this.containerId).clientHeight : this.maxEditScrollHeight
+        this.maxPreviewScrollHeight = document.getElementById(this.previewContainerId) ? document.getElementById(this.previewContainerId).scrollHeight - document.getElementById(this.previewContainerId).clientHeight : this.maxPreviewScrollHeight
+      }, 1)
     },
     previewFn: function() {
       if (this.columnsStatus) {
@@ -359,15 +363,15 @@ export default {
       }
     },
     previewScroll: function(e, position) {
-      if (this.maxEditScrollHeight !== 0) {
+      if (this.maxEditScrollHeight !== 0 && this.columnsStatus) {
         let topPercent = position.scrollTop / this.maxPreviewScrollHeight
-        document.getElementById(this.previewContainerId).scrollTop = this.maxEditScrollHeight * topPercent
+        document.getElementById(this.containerId).scrollTop = this.maxEditScrollHeight * topPercent
       }
     },
     editScroll: function(e, position) {
-      if (this.maxPreviewScrollHeight !== 0) {
+      if (this.maxPreviewScrollHeight !== 0 && this.columnsStatus) {
         let topPercent = position.scrollTop / this.maxEditScrollHeight
-        document.getElementById(this.editorContainerId).scrollTop = this.maxPreviewScrollHeight * topPercent
+        document.getElementById(this.previewContainerId).scrollTop = this.maxPreviewScrollHeight * topPercent
       }
     },
     isShow: function (v) {
@@ -414,7 +418,7 @@ export default {
         sanitize: true
       })
       this.$emit('childevent', data)
-      let maxEditScrollHeight = document.getElementById(this.editorContainerId) ? document.getElementById(this.editorContainerId).scrollHeight - document.getElementById(this.editorContainerId).clientHeight : this.maxEditScrollHeight
+      let maxEditScrollHeight = document.getElementById(this.containerId) ? document.getElementById(this.containerId).scrollHeight - document.getElementById(this.containerId).clientHeight : this.maxEditScrollHeight
       let maxPreviewScrollHeight = document.getElementById(this.previewContainerId) ? document.getElementById(this.previewContainerId).scrollHeight - document.getElementById(this.previewContainerId).clientHeight : this.maxPreviewScrollHeight
       this.maxEditScrollHeight = maxEditScrollHeight
       this.maxPreviewScrollHeight = maxPreviewScrollHeight
