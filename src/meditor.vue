@@ -1,29 +1,57 @@
 <template>
     <div class="mdContainer" :class="{ fullPage: fullPageStatus }">
         <div class="navContainer" v-if="navStatus">
-            <!-- <div class="nameContainer" v-if="icoStatusP" @click="happyDay">OVEN-mdEditor</div> -->
+            <div class="nameContainer" v-if="brandCnt" @click="happyDay" v-html="brandCnt"></div>
             <div class="markContainer">
                 <ul class="markListGroup">
-                  <li class="markListItem" @click="addStrong" title="strong" v-if="isShow('Strong')"><b>B</b></li>
-                  <li class="markListItem" @click="addItalic" title="italic" v-if="isShow('Italic')"><i>I</i></li>
-                  <li class="markListItem" @click="addStrikethrough" title="strikethrough" v-if="isShow('Strikethrough')"><i class="fa fa-strikethrough" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addHTitle(1)" title="H1-title" v-if="isShow('H1')">H1</li>
-                  <li class="markListItem" @click="addHTitle(2)" title="H2-title" v-if="isShow('H2')">H2</li>
-                  <li class="markListItem" @click="addHTitle(3)" title="H3-title" v-if="isShow('H3')">H3</li>
-                  <li class="markListItem" @click="addHTitle(4)" title="H4-title" v-if="isShow('H4')">H4</li>
-                  <li class="markListItem" @click="addHTitle(5)" title="H5-title" v-if="isShow('H5')">H5</li>
-                  <li class="markListItem" @click="addHTitle(6)" title="H6-title" v-if="isShow('H6')">H6</li>
-                  <li class="markListItem" @click="addLine" title="line" v-if="isShow('Line')">一</li>
-                  <li class="markListItem" @click="addQuote" title="quote" v-if="isShow('Quote')"><i class="fa fa-quote-left" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addCode" v-if="isShow('Code')"><i class="fa fa-code" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addLink" v-if="isShow('Link')"><i class="fa fa-link" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addImage" v-if="isShow('Image')"><i class="fa fa-picture-o" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addTable" title="table" v-if="isShow('Table')"><i class="fa fa-table" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addUl" title="ul-list" v-if="isShow('Ul')"><i class="fa fa-list-ul" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="addOl" title="ol-list" v-if="isShow('Ol')"><i class="fa fa-list-ol" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="fullPageFn" title="fullpage" v-if="isShow('Fullpage')"><i class="fa fa-arrows-alt" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="previewFn" title="preview" v-if="isShow('Preview')"><i class="fa fa-eye-slash" aria-hidden="true"></i></li>
-                  <li class="markListItem" @click="previewAllFn" title="previewAll" v-if="isShow('PreviewAll')"><i class="fa fa-eye" aria-hidden="true"></i></li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addStrong" title="strong" v-if="isShow('Strong')">
+                    <b>B</b>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addItalic" title="italic" v-if="isShow('Italic')">
+                    <i>I</i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addStrikethrough" title="strikethrough" v-if="isShow('Strikethrough')">
+                    <i class="fa fa-strikethrough" aria-hidden="true"></i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(1)" title="H1-title" v-if="isShow('H1')">H1</li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(2)" title="H2-title" v-if="isShow('H2')">H2</li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(3)" title="H3-title" v-if="isShow('H3')">H3</li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(4)" title="H4-title" v-if="isShow('H4')">H4</li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(5)" title="H5-title" v-if="isShow('H5')">H5</li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addHTitle(6)" title="H6-title" v-if="isShow('H6')">H6</li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addLine" title="line" v-if="isShow('Line')">一</li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addQuote" title="quote" v-if="isShow('Quote')">
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addCode" v-if="isShow('Code')">
+                    <i class="fa fa-code" aria-hidden="true"></i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addLink" v-if="isShow('Link')">
+                    <i class="fa fa-link" aria-hidden="true"></i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addImage" v-if="isShow('Image')">
+                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addTable" title="table" v-if="isShow('Table')">
+                    <i class="fa fa-table" aria-hidden="true"></i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addUl" title="ul-list" v-if="isShow('Ul')">
+                    <i class="fa fa-list-ul" aria-hidden="true"></i>
+                  </li>
+                  <li :class="[ disabledStatus ? 'disabled' : '', 'markListItem']" @click="addOl" title="ol-list" v-if="isShow('Ol')">
+                    <i class="fa fa-list-ol" aria-hidden="true"></i>
+                  </li>
+                  <li class="markListItem" @click="columnsFn" title="columns" v-if="isShow('Columns')">
+                    <i class="fa fa-columns" aria-hidden="true"></i>
+                  </li>
+                  <li class="markListItem" @click="previewFn" title="preview" v-if="isShow('Preview')">
+                    <i class="fa fa-eye" aria-hidden="true" v-if="previewBtn"></i>
+                    <i class="fa fa-eye-slash" aria-hidden="true" v-if="!previewBtn"></i>
+                  </li>
+                  <li class="markListItem" @click="fullPageFn" title="fullpage" v-if="isShow('Fullpage')">
+                    <i class="fa fa-arrows-alt" aria-hidden="true" v-if="!fullPageBtn"></i>
+                    <i class="fa fa-compress" aria-hidden="true" v-if="fullPageBtn"></i>
+                  </li>
                 </ul>
             </div>
         </div>
@@ -39,8 +67,8 @@
 
 <script>
 import Vue from 'vue'
-import scroll from 'vue-scroll'
 import marked from 'marked'
+import scroll from 'vue-scroll'
 import hljs from './assets/js/highlight.js'
 import range from './assets/js/rangeFn.js'
 
@@ -48,30 +76,52 @@ Vue.use(scroll)
 
 export default {
   name: 'markdown-editor',
-  props: ['textareaId', 'mdValuesP', 'fullPageStatusP', 'editStatusP', 'previewStatusP', 'navStatusP', 'icoStatusP', 'hidType'],
+  props: ['textareaId', 'mdValuesP', 'fullPageStatusP', 'editStatusP', 'columnsStatusP', 'navStatusP', 'brandContent', 'hidType'],
   data () {
     return {
+      // 编辑器id
       containerId: this.textareaId || 'MdEditor',
+      // 编辑器外层id
+      txtId: `txtId_${this.textareaId || 'MdEditor'}`,
+      // markdown 内容
       inputVsp: this.mdValuesP || '',
-      editStatus: Boolean(this.editStatusP),
-      previewStatus: Boolean(this.previewStatusP),
+      // 编辑器状态
+      editStatus: Boolean(this.columnsStatusP) || Boolean(this.editStatusP),
+      // 展示窗状态
+      previewStatus: Boolean(this.columnsStatusP) || !this.editStatusP,
+      // 分栏功能状态
+      columnsStatus: Boolean(this.columnsStatusP),
+      // 功能禁用按钮状态
+      disabledStatus: !this.columnsStatusP && !this.editStatusP,
+      // preview 图标显示状态，默认跟编辑器状态
+      previewBtn: Boolean(this.columnsStatusP) || Boolean(this.editStatusP),
+      // 编辑器全屏状态
       fullPageStatus: Boolean(this.fullPageStatusP),
+      // 编辑器全屏按钮状态
+      fullPageBtn: Boolean(this.fullPageStatusP),
+      // 导航条显示状态
       navStatus: Boolean(this.navStatusP),
-      icoStatus: Boolean(this.icoStatusP),
+      // 导航条 logo内容，如果有内容，显示logo
+      brandCnt: this.brandContent,
       maxEditScrollHeight: 0,
       maxPreviewScrollHeight: 0,
-      txtId: `txtId_${this.textareaId || 'MdEditor'}`,
-      hiddenType: this.hidType || []
+      // 需要隐藏的功能：Strong、Italic、Strikethrough、H1、H2、H3、H4、H5、H6、Line、Quote、Code、Link、Image、Table、Ul、Ol、Fullpage、Columns、Preview
+      hiddenType: this.hidType || [],
+      // body 当前scrollTop值
+      bodyScrollTop: 0
     }
   },
-  created: function() {
-    if (!this.editStatus && !this.previewStatus) {
-      this.editStatus = true
-      this.previewStatus = true
-    }
-  },
+  // created: function() {
+  //   if (!this.editStatus && !this.previewStatus) {
+  //     this.editStatus = true
+  //     this.previewStatus = true
+  //   }
+  // },
   methods: {
     insertContent: function (val) {
+      if (this.disabledStatus) {
+        return
+      }
       let textareaDom = document.getElementById(this.containerId)
       let value = textareaDom.value
       let point = range.getCursortPosition(textareaDom)
@@ -86,8 +136,11 @@ export default {
       this.inputVsp = document.getElementById(this.containerId).value
     },
     tabFn: function(evt) {
-      this.insertContent('    ', this)
-      // 屏蔽屌tab切换事件
+      if (this.disabledStatus) {
+        return
+      }
+      this.insertContent('    ')
+      // 屏蔽tab切换事件
       if (evt.preventDefault) {
         evt.preventDefault()
       } else {
@@ -95,11 +148,17 @@ export default {
       }
     },
     addImage: function(evt) {
+      if (this.disabledStatus) {
+        return
+      }
       setTimeout(() => {
-        this.insertContent('![Vue](https://cn.vuejs.org/images/logo.png)', this)
+        this.insertContent('![Vue](https://cn.vuejs.org/images/logo.png)')
       }, 1000)
     },
     addHTitle: function(index) {
+      if (this.disabledStatus) {
+        return
+      }
       let tmp = ''
       switch (index) {
         case 1:
@@ -123,14 +182,17 @@ export default {
         default:
           break
       }
-      this.insertContent(tmp, this)
+      this.insertContent(tmp)
     },
     addCode: function() {
+      if (this.disabledStatus) {
+        return
+      }
       let textareaDom = document.getElementById(this.containerId)
       let value = textareaDom.value
       let point = range.getCursortPosition(textareaDom)
       let lastChart = value.substring(point - 1, point)
-      this.insertContent('```\n\n```', this)
+      this.insertContent('```\n\n```')
       if (lastChart !== '\n' && value !== '') {
         range.setCaretPosition(textareaDom, point + 5)
       } else {
@@ -138,11 +200,14 @@ export default {
       }
     },
     addStrikethrough: function() {
+      if (this.disabledStatus) {
+        return
+      }
       let textareaDom = document.getElementById(this.containerId)
       let value = textareaDom.value
       let point = range.getCursortPosition(textareaDom)
       let lastChart = value.substring(point - 1, point)
-      this.insertContent('~~~~', this)
+      this.insertContent('~~~~')
       if (lastChart !== '\n' && value !== '') {
         range.setCaretPosition(textareaDom, point + 3)
       } else {
@@ -150,11 +215,14 @@ export default {
       }
     },
     addStrong: function() {
+      if (this.disabledStatus) {
+        return
+      }
       let textareaDom = document.getElementById(this.containerId)
       let value = textareaDom.value
       let point = range.getCursortPosition(textareaDom)
       let lastChart = value.substring(point - 1, point)
-      this.insertContent('****', this)
+      this.insertContent('****')
       if (lastChart !== '\n' && value !== '') {
         range.setCaretPosition(textareaDom, point + 3)
       } else {
@@ -162,33 +230,48 @@ export default {
       }
     },
     addItalic: function() {
+      if (this.disabledStatus) {
+        return
+      }
       let textareaDom = document.getElementById(this.containerId)
       let value = textareaDom.value
       let point = range.getCursortPosition(textareaDom)
       let lastChart = value.substring(point - 1, point)
-      this.insertContent('**', this)
+      this.insertContent('**')
       if (lastChart !== '\n' && value !== '') {
         range.setCaretPosition(textareaDom, point + 2)
       } else {
         range.setCaretPosition(textareaDom, point + 1)
       }
     },
-    setStrong: function() {
-      let textareaDom = document.getElementById(this.containerId)
-      let point = range.getCursortPosition(textareaDom)
-    },
+    // setStrong: function() {
+    //   if (this.disabledStatus) {
+    //     return
+    //   }
+    //   let textareaDom = document.getElementById(this.containerId)
+    //   let point = range.getCursortPosition(textareaDom)
+    // },
     addLine: function() {
-      this.insertContent('\n----\n', this)
+      if (this.disabledStatus) {
+        return
+      }
+      this.insertContent('\n----\n')
     },
     addLink: function() {
-      this.insertContent('[Vue](https://cn.vuejs.org/images/logo.png)', this)
+      if (this.disabledStatus) {
+        return
+      }
+      this.insertContent('[Vue](https://cn.vuejs.org/images/logo.png)')
     },
     addQuote: function() {
+      if (this.disabledStatus) {
+        return
+      }
       let textareaDom = document.getElementById(this.containerId)
       let value = textareaDom.value
       let point = range.getCursortPosition(textareaDom)
       let lastChart = value.substring(point - 1, point)
-      this.insertContent('> ', this)
+      this.insertContent('> ')
       if (lastChart !== '\n' && value !== '') {
         range.setCaretPosition(textareaDom, point + 3)
       } else {
@@ -196,40 +279,64 @@ export default {
       }
     },
     addTable: function() {
-      this.insertContent('\nheader 1 | header 2\n', this)
-      this.insertContent('---|---\n', this)
-      this.insertContent('row 1 col 1 | row 1 col 2\n', this)
-      this.insertContent('row 2 col 1 | row 2 col 2\n\n', this)
+      if (this.disabledStatus) {
+        return
+      }
+      this.insertContent('\nheader 1 | header 2\n')
+      this.insertContent('---|---\n')
+      this.insertContent('row 1 col 1 | row 1 col 2\n')
+      this.insertContent('row 2 col 1 | row 2 col 2\n\n')
     },
     addUl: function() {
-      this.insertContent('* ', this)
+      if (this.disabledStatus) {
+        return
+      }
+      this.insertContent('* ')
     },
     addOl: function() {
-      this.insertContent('1. ', this)
+      if (this.disabledStatus) {
+        return
+      }
+      this.insertContent('1. ')
+    },
+    columnsFn: function() {
+      if (!this.columnsStatus) {
+        this.editStatus = true
+        this.previewStatus = true
+      } else {
+        this.previewStatus = !this.previewStatus
+      }
+      this.previewBtn = true
+      this.columnsStatus = !this.columnsStatus
     },
     previewFn: function() {
-      if (!this.editStatus) {
+      if (this.columnsStatus) {
         this.editStatus = true
-        this.previewStatus = !this.previewStatus
+        this.previewStatus = false
+        this.columnsStatus = !this.columnsStatus
       } else {
+        this.editStatus = !this.editStatus
         this.previewStatus = !this.previewStatus
       }
-    },
-    previewAllFn: function() {
-      if (!this.editStatus && this.previewStatus) {
-        this.editStatus = true
-        this.previewStatus = true
+      if (this.previewStatus && !this.columnsStatus) {
+        this.disabledStatus = true
       } else {
-        this.editStatus = false
-        this.previewStatus = true
+        this.disabledStatus = false
       }
+      this.previewBtn = !this.previewStatus
     },
     fullPageFn: function() {
       this.fullPageStatus = !this.fullPageStatus
+      this.fullPageBtn = !this.fullPageBtn
       let maxEditScrollHeight = document.getElementById(this.containerId).scrollHeight - document.getElementById(this.containerId).clientHeight
       let maxPreviewScrollHeight = document.getElementById(this.txtId).scrollHeight - document.getElementById(this.txtId).clientHeight
       this.maxEditScrollHeight = maxEditScrollHeight
       this.maxPreviewScrollHeight = maxPreviewScrollHeight
+      if (this.fullPageStatus) {
+        this.bodyScrollFunc().fullPage()
+      } else {
+        this.bodyScrollFunc().unFullPage()
+      }
     },
     previewScroll: function(e, position) {
       if (this.maxEditScrollHeight !== 0) {
@@ -252,10 +359,25 @@ export default {
         }
       }
       return typeBool
+    },
+    happyDay: function () {
+      window.open('http://cpc.top')
+    },
+    bodyScrollFunc: function () {
+      let that = this
+      return {
+        fullPage: function () {
+          that.bodyScrollTop = document.querySelector('body').scrollTop
+          document.body.classList.add('fullPage')
+          document.body.style.top = -that.bodyScrollTop + 'px'
+        },
+        unFullPage: function () {
+          document.body.classList.remove('fullPage')
+          // scrollTop lost after set position:fixed, restore it back.
+          document.body.scrollTop = that.bodyScrollTop
+        }
+      }
     }
-    // happyDay:function(){
-    //     window.open('https://github.com/ovenslove/vue-mdEditor');
-    // }
   },
   computed: {
     compiledMarkdown: function() {
@@ -297,6 +419,12 @@ export default {
 </script>
 
 <style lang="scss">
+  body {
+    &.fullPage {
+      position: fixed;
+      width: 100%;
+    }
+  }
   .mdContainer {
     width: 100%;
     height: 500px;
@@ -306,6 +434,7 @@ export default {
       z-index: 1000;
       left: 0;
       top: 0;
+      height: 100%;
     }
   }
   .navContainer {
@@ -349,6 +478,11 @@ export default {
     color: #333;
     &:hover {
       background: #eee;
+    }
+    &.disabled {
+      background-color: #e9e9e9;
+      color: #a4a4a4;
+      cursor: no-drop;
     }
   }
   .mdBodyContainer {

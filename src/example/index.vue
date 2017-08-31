@@ -10,15 +10,17 @@
             <textarea class="showAreaContainer" v-model="msgShow" readonly></textarea>
           </div>
         </div>
+        <!-- ['textareaId', 'mdValuesP', 'fullPageStatusP', 'editStatusP', 'columnsStatusP', 'navStatusP', 'brandContent', 'hidType'] -->
         <div class="editorContainer">
           <Editor
           :textareaId="textareaId"
+          :brandContent="brandCnt"
           :mdValuesP="msg.mdValue"
           :fullPageStatusP="false"
           :editStatusP="true"
-          :previewStatusP="true"
+          :columnsStatusP="false"
           :navStatusP="true"
-          :icoStatusP="true"
+          :brandCnt="CPC"
           :hidType="hidType"
           @childevent="childEventHandler"
           ></Editor>
@@ -35,6 +37,7 @@
         textareaId: 'exampleId',
         msgShow: '我要显示的内容',
         dilogStatus: false,
+        brandCnt: 'CPC',
         msg: {
           mdValue: '## Vue-markdownEditor'
         },
